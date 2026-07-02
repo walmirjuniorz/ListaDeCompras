@@ -1,6 +1,6 @@
-using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ListaDeCompras.ConsoleApp.Compartilhado;
 
-namespace ListaDeCompras.ConsoleApp.Modulo.ModuloProdutos;
+namespace ListaDeCompras.ConsoleApp.Modulo.ModuloProduto;
 
 public class RepositorioProduto : RepositorioBase
 {

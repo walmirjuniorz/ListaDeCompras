@@ -1,4 +1,4 @@
-namespace ClubeDaLeitura.ConsoleApp.Compartilhado;
+namespace ListaDeCompras.ConsoleApp.Compartilhado;
 
 public interface ITelaOpcoes // interface = contrato
 {

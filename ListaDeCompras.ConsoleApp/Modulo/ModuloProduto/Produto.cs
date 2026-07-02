@@ -1,4 +1,4 @@
-using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ListaDeCompras.ConsoleApp.Compartilhado;
 using ListaDeCompras.ConsoleApp.Modulo.ModuloCategoria;
 
 namespace ListaDeCompras.ConsoleApp.Modulo.ModuloProduto;
@@ -33,8 +33,19 @@ public class Produto : EntidadeBase
 {
     public string Nome { get; private set; }
     public Categoria Categoria { get; private set; }
-    public int Preco { get; private set; }
-    public UnidadeMedidaProduto UnidadeProduto { get; private set; }
+    public int ValorUnidadeMedida { get; private set; }
+    public UnidadeMedidaProduto UnidadeMedida { get; private set; }
+    public decimal Preco { get; private set; }
+    public Produto(string nome, Categoria categoria, int valorUnidadeMedida, UnidadeMedidaProduto unidadeProduto, decimal preco)
+    {
+        Id = GeradorIdsCategoria.GerarId();
+
+        Nome = nome;
+        Categoria = categoria;
+        ValorUnidadeMedida = valorUnidadeMedida;
+        UnidadeMedida = unidadeProduto;
+        Preco = preco;
+    }
 
     public override void Atualizar(EntidadeBase entidadeAtualizada)
     {

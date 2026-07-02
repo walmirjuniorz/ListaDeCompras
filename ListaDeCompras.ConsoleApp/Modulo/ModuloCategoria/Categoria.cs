@@ -1,4 +1,4 @@
-using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ListaDeCompras.ConsoleApp.Compartilhado;
 
 namespace ListaDeCompras.ConsoleApp.Modulo.ModuloCategoria;
 /*

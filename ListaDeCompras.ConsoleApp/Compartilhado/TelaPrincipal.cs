@@ -1,6 +1,6 @@
 using ListaDeCompras.ConsoleApp.Modulo.ModuloCategoria;
 
-namespace ClubeDaLeitura.ConsoleApp.Compartilhado;
+namespace ListaDeCompras.ConsoleApp.Compartilhado;
 
 public class TelaPrincipal
 {
