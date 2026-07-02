@@ -15,12 +15,11 @@ public enum CorCategoria
     Verde,
     Azul
 }
-
 public static class GeradorIdsCategoria
 {
     private static int contadorIds = 1;
 
-    public static int ObterId()
+    public static int GerarId()
     {
         return contadorIds++;
     }
@@ -33,7 +32,7 @@ public class Categoria : EntidadeBase
 
     public Categoria(string nome, CorCategoria cor)
     {
-        Id = GeradorIdsCategoria.ObterId();
+        Id = GeradorIdsCategoria.GerarId();
 
         Nome = nome;
         Cor = cor;

@@ -85,7 +85,6 @@ public class TelaCategoria : TelaBase, ITelaOpcoes
         }
         return new Categoria(nome!, cor);
     }
-
     protected override bool ExisteRegistroComInformacoesExclusivas(EntidadeBase entidade, int? idIgnorado = null)
     {
         Categoria novaCategoria = (Categoria)entidade;
