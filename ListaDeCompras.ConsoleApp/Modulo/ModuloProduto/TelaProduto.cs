@@ -11,8 +11,7 @@ public class TelaProduto : TelaBase, ITelaOpcoes
 
     public TelaProduto(
         RepositorioProduto repositorioProduto,
-        RepositorioCategoria repositorioCategoria
-        ) : base("Produto", repositorioProduto)
+        RepositorioCategoria repositorioCategoria) : base("Produto", repositorioProduto)
     {
         this.repositorioProduto = repositorioProduto;
         this.repositorioCategoria = repositorioCategoria;
@@ -23,7 +22,7 @@ public class TelaProduto : TelaBase, ITelaOpcoes
         if (deveExibirCabecalho)
         {
             Console.WriteLine("---------------------------------");
-            Console.WriteLine("Visualizacao de Produtos");
+            Console.WriteLine("Visualizacao de Produto");
             Console.WriteLine("---------------------------------");
         }
 
@@ -43,7 +42,11 @@ public class TelaProduto : TelaBase, ITelaOpcoes
 
             Console.WriteLine(
                 "{0, -7} | {1, -20} | {2, -20} | {3, -11} | {4, -6}",
-                p.Id, p.Nome, p.Categoria.Nome, p.UnidadeMedida, p.Preco
+                p.Id,
+                p.Nome,
+                p.Categoria.Nome,
+                string.Join(" ", p.ValorUnidadeMedida, p.UnidadeMedida),
+                p.Preco.ToString("C2")
                 );
         }
         if (deveExibirCabecalho)
@@ -55,7 +58,7 @@ public class TelaProduto : TelaBase, ITelaOpcoes
     }
     protected override EntidadeBase ObterDadosCadastrais()
     {
-        Console.Write("Informe o nome do produto: ");
+        Console.Write("Digite o nome do produto: ");
         string? nome = Console.ReadLine();
 
         Console.WriteLine("---------------------------------");
@@ -64,7 +67,7 @@ public class TelaProduto : TelaBase, ITelaOpcoes
 
         Console.WriteLine("---------------------------------");
 
-        Console.Write("Informe o Id da Categoria que deseja selecionar: ");
+        Console.Write("Digite o Id da Categoria que deseja selecionar: ");
         int IdCategoria = Convert.ToInt32(Console.ReadLine());
 
         Console.WriteLine("---------------------------------");
@@ -75,7 +78,7 @@ public class TelaProduto : TelaBase, ITelaOpcoes
         int valorUnidadeMedida = Convert.ToInt32(Console.ReadLine());
 
         Console.WriteLine("---------------------------------");
-        Console.WriteLine("Selecione a unidade de medida");
+        Console.WriteLine("Selecione a unidade de medida disponível");
         Console.WriteLine("---------------------------------");
         Console.WriteLine("1 - Unidade (Padrao)");
         Console.WriteLine("2 - Caixa");

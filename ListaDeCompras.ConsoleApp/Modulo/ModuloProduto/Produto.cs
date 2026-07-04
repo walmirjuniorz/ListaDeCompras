@@ -20,7 +20,7 @@ public enum UnidadeMedidaProduto
     Ml,
     G
 }
-public class GeradorIdsProduto
+public static class GeradorIdsProduto
 {
     private static int contadorIds = 1;
 
@@ -34,7 +34,7 @@ public class Produto : EntidadeBase
     public string Nome { get; private set; }
     public Categoria Categoria { get; private set; }
     public int ValorUnidadeMedida { get; private set; }
-    public UnidadeMedidaProduto UnidadeMedida { get; private set; }
+    public UnidadeMedidaProduto UnidadeMedida { get; private set; } = UnidadeMedidaProduto.Unidade;
     public decimal Preco { get; private set; }
     public Produto(string nome, Categoria categoria, int valorUnidadeMedida, UnidadeMedidaProduto unidadeProduto, decimal preco)
     {
@@ -52,6 +52,9 @@ public class Produto : EntidadeBase
         Produto produtoAtualizado = (Produto)entidadeAtualizada;
 
         Nome = produtoAtualizado.Nome;
+        Categoria = produtoAtualizado.Categoria;
+        ValorUnidadeMedida = produtoAtualizado.ValorUnidadeMedida;
+        UnidadeMedida = produtoAtualizado.UnidadeMedida;
         Preco = produtoAtualizado.Preco;
     }
 }
