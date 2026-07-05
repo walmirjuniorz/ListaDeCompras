@@ -88,7 +88,7 @@ public class TelaProduto : TelaBase, ITelaOpcoes
         Console.WriteLine("6 - Ml");
         Console.WriteLine("7 - G");
         Console.WriteLine("---------------------------------");
-        Console.WriteLine("Informe a unidade de medida selecionada: ");
+        Console.Write("Informe a unidade de medida selecionada: ");
         string unidadeSelecionada = Console.ReadLine();
 
         UnidadeMedidaProduto unidadeMedida;
@@ -131,6 +131,34 @@ public class TelaProduto : TelaBase, ITelaOpcoes
             unidadeMedida,
             precoAproximado
             );
+    }
+
+    protected override bool ExisteRegistroComInformacoesExclusivas(EntidadeBase entidade, int? idIgnorado = null)
+    {
+        Produto produto = (Produto)entidade;
+
+        EntidadeBase[] produtos = repositorioProduto.SelecionarTodos();
+
+        for (int i = 0; i < produtos.Length; i++)
+        {
+            Produto p = (Produto)produtos[i];
+
+            if (p == null)
+                continue;
+
+            if (p.Id != idIgnorado &&
+                p.Nome.ToLower() == produto.Nome.ToLower() &&
+                p.Categoria == produto.Categoria
+            )
+            {
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine($"Já existe um produto com o nome {p.Nome} na categoria!");
+                Console.WriteLine("---------------------------------");
+
+                return true;
+            }
+        }
+        return base.ExisteRegistroComInformacoesExclusivas(entidade, idIgnorado);
     }
     private void VisualizarCategorias()
     {
