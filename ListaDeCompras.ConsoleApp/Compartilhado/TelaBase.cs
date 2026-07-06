@@ -42,8 +42,6 @@ public abstract class TelaBase
             return;
         }
 
-        EntidadeBase[] registros = repositorio.SelecionarTodos();
-
         repositorio.Cadastrar(novaEntidade);
 
         Console.WriteLine("---------------------------------");
