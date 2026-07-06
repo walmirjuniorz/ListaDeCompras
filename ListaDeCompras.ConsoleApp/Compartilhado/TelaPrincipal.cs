@@ -2,6 +2,7 @@ using ListaDeCompras.ConsoleApp.Modulo.ModuloCategoria;
 using ListaDeCompras.ConsoleApp.Modulo.ModuloListaCompras;
 using ListaDeCompras.ConsoleApp.Modulo.ModuloProduto;
 using static ListaDeCompras.ConsoleApp.Modulo.ModuloCompra.GeradorIdsListaCompras;
+using static ListaDeCompras.ConsoleApp.Modulo.ModuloItemListaCompras.GeradorIdsItemListaCompras;
 
 namespace ListaDeCompras.ConsoleApp.Compartilhado;
 
@@ -21,6 +22,8 @@ public class TelaPrincipal
         repositorioProduto.Cadastrar(produtoTeste);
 
         ListaCompras listaTeste = new ListaCompras("Compras do Mes");
+
+        listaTeste.AdicionarItem(new ItemListaCompras(produtoTeste, 3));
         repositorioListaCompras = new RepositorioListaCompras();
         repositorioListaCompras.Cadastrar(listaTeste);
     }
@@ -44,7 +47,7 @@ public class TelaPrincipal
         if (opcaoMenuPrincipal == "2")
             return new TelaProduto(repositorioProduto, repositorioCategoria);
         if (opcaoMenuPrincipal == "3")
-            return new TelaListaCompras(repositorioListaCompras);
+            return new TelaListaCompras(repositorioListaCompras, repositorioProduto);
         if (opcaoMenuPrincipal == "4")
             return null;
 

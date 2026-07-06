@@ -21,19 +21,19 @@ public static class GeradorIdsItemListaCompras
     {
         public int Id { get; private set; }
         public Produto Produto { get; private set; }
-        public int Qauntidade { get; private set; }
+        public int Quantidade { get; private set; }
         public decimal PrecoTotal
         {
             get
             {
-                return Produto.Preco * Qauntidade;
+                return Produto.Preco * Quantidade;
             }
         }
         public ItemListaCompras(Produto produto, int qauntidade)
         {
             Id = GeradorIdsItemListaCompras.GerarId();
             Produto = produto;
-            Qauntidade = qauntidade;
+            Quantidade = qauntidade;
         }
     }
 }
