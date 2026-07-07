@@ -1,19 +1,18 @@
-using System.ComponentModel;
 using ListaDeCompras.ConsoleApp.Compartilhado;
+using ListaDeCompras.ConsoleApp.Modulo.ModuloListaCompras;
 using ListaDeCompras.ConsoleApp.Modulo.ModuloProduto;
-using static ListaDeCompras.ConsoleApp.Modulo.ModuloCompra.GeradorIdsListaCompras;
 using static ListaDeCompras.ConsoleApp.Modulo.ModuloItemListaCompras.GeradorIdsItemListaCompras;
 
-namespace ListaDeCompras.ConsoleApp.Modulo.ModuloListaCompras;
+namespace ListaDeCompras.ConsoleApp.Modulos.ModuloListaCompras;
 
-public class TelaListaCompras : TelaBase, ITelaOpcoes
+public class TelaListaCompras : TelaBase<ListaCompras>, ITelaOpcoes, ITelaCrud
 {
     private readonly RepositorioListaCompras repositorioListaCompras;
     private readonly RepositorioProduto repositorioProduto;
 
     public TelaListaCompras(
         RepositorioListaCompras repositorioListaCompras,
-        RepositorioProduto repositorioProduto) : base("ListaCompras", repositorioListaCompras)
+        RepositorioProduto repositorioProduto) : base("Lista de Compras", repositorioListaCompras)
     {
         this.repositorioListaCompras = repositorioListaCompras;
         this.repositorioProduto = repositorioProduto;
@@ -86,7 +85,7 @@ public class TelaListaCompras : TelaBase, ITelaOpcoes
         Console.WriteLine("Digite o Id da lista que deseja editar: ");
         int idListaSelecionada = Convert.ToInt32(Console.ReadLine());
 
-        ListaCompras? listaSelecionada = (ListaCompras?)repositorioListaCompras.SelecionarPorId(idListaSelecionada);
+        ListaCompras? listaSelecionada = repositorioListaCompras.SelecionarPorId(idListaSelecionada);
 
         Console.WriteLine("---------------------------------");
         Console.WriteLine($"Gestao da lista de compras \"{listaSelecionada.Nome}\"");
@@ -98,7 +97,7 @@ public class TelaListaCompras : TelaBase, ITelaOpcoes
         Console.WriteLine("Digite o Id do produto que deseja adiconar: ");
         int idProdutoSelecionado = Convert.ToInt32(Console.ReadLine());
 
-        Produto? produtoSelecionado = (Produto?)repositorioProduto.SelecionarPorId(idProdutoSelecionado);
+        Produto? produtoSelecionado = repositorioProduto.SelecionarPorId(idProdutoSelecionado);
 
         Console.WriteLine("Digite a quantidade do produto: ");
         int quantidadeProduto = Convert.ToInt32(Console.ReadLine());
@@ -158,7 +157,7 @@ public class TelaListaCompras : TelaBase, ITelaOpcoes
         Console.WriteLine("Digite o Id da lista que deseja visualizar: ");
         int idListaSelecionada = Convert.ToInt32(Console.ReadLine());
 
-        ListaCompras? listaSelecionada = (ListaCompras?)repositorioListaCompras.SelecionarPorId(idListaSelecionada);
+        ListaCompras? listaSelecionada = repositorioListaCompras.SelecionarPorId(idListaSelecionada);
 
         Console.WriteLine("---------------------------------");
         Console.WriteLine($"Gestao da lista de compras \"{listaSelecionada.Nome}\"");
@@ -190,7 +189,7 @@ public class TelaListaCompras : TelaBase, ITelaOpcoes
         }
         return listaSelecionada;
     }
-    protected override EntidadeBase ObterDadosCadastrais()
+    protected override ListaCompras ObterDadosCadastrais()
     {
         Console.Write("Digite o nome da lista de compras: ");
         string? nome = Console.ReadLine();
@@ -204,11 +203,11 @@ public class TelaListaCompras : TelaBase, ITelaOpcoes
             "Id", "Nome", "Categoria", "Unidade", "Preco Aproximado"
             );
 
-        EntidadeBase[] produtos = repositorioProduto.SelecionarTodos();
+        Produto[] produtos = repositorioProduto.SelecionarTodos();
 
         for (int i = 0; i < produtos.Length; i++)
         {
-            Produto p = (Produto)produtos[i];
+            Produto p = produtos[i];
 
             if (p == null)
                 continue;

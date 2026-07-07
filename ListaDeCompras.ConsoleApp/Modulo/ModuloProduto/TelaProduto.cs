@@ -4,7 +4,7 @@ using ListaDeCompras.ConsoleApp.Modulo.ModuloCategoria;
 
 namespace ListaDeCompras.ConsoleApp.Modulo.ModuloProduto;
 
-public class TelaProduto : TelaBase, ITelaOpcoes
+public class TelaProduto : TelaBase<Produto>, ITelaOpcoes, ITelaCrud
 {
     private readonly RepositorioCategoria repositorioCategoria;
     private readonly RepositorioProduto repositorioProduto;
@@ -31,7 +31,7 @@ public class TelaProduto : TelaBase, ITelaOpcoes
             "Id", "Nome", "Categoria", "Unidade", "Preco Aproximado"
             );
 
-        EntidadeBase[] produtos = repositorioProduto.SelecionarTodos();
+        Produto[] produtos = repositorioProduto.SelecionarTodos();
 
         for (int i = 0; i < produtos.Length; i++)
         {
@@ -56,7 +56,7 @@ public class TelaProduto : TelaBase, ITelaOpcoes
             Console.ReadLine();
         }
     }
-    protected override EntidadeBase ObterDadosCadastrais()
+    protected override Produto ObterDadosCadastrais()
     {
         Console.Write("Digite o nome do produto: ");
         string? nome = Console.ReadLine();
@@ -72,7 +72,7 @@ public class TelaProduto : TelaBase, ITelaOpcoes
 
         Console.WriteLine("---------------------------------");
 
-        Categoria categoriaSelecionada = (Categoria)repositorioCategoria.SelecionarPorId(IdCategoria);
+        Categoria? categoriaSelecionada = repositorioCategoria.SelecionarPorId(IdCategoria);
 
         Console.Write("Digite o valor ou a quantidade da unidade de medida do produto: ");
         int valorUnidadeMedida = Convert.ToInt32(Console.ReadLine());
@@ -132,23 +132,20 @@ public class TelaProduto : TelaBase, ITelaOpcoes
             precoAproximado
             );
     }
-
-    protected override bool ExisteRegistroComInformacoesExclusivas(EntidadeBase entidade, int? idIgnorado = null)
+    protected override bool ExisteRegistroComInformacoesExclusivas(Produto entidade, int? idIgnorado = null)
     {
-        Produto produto = (Produto)entidade;
-
-        EntidadeBase[] produtos = repositorioProduto.SelecionarTodos();
+        Produto[] produtos = repositorioProduto.SelecionarTodos();
 
         for (int i = 0; i < produtos.Length; i++)
         {
-            Produto p = (Produto)produtos[i];
+            Produto p = produtos[i];
 
             if (p == null)
                 continue;
 
             if (p.Id != idIgnorado &&
-                p.Nome.ToLower() == produto.Nome.ToLower() &&
-                p.Categoria == produto.Categoria
+                p.Nome.ToLower() == entidade.Nome.ToLower() &&
+                p.Categoria == entidade.Categoria
             )
             {
                 Console.WriteLine("---------------------------------");
@@ -167,11 +164,11 @@ public class TelaProduto : TelaBase, ITelaOpcoes
             "Id", "Nome", "Cor"
         );
 
-        EntidadeBase[] registros = repositorioCategoria.SelecionarTodos();
+        Categoria[] categorias = repositorioCategoria.SelecionarTodos();
 
-        for (int i = 0; i < registros.Length; i++)
+        for (int i = 0; i < categorias.Length; i++)
         {
-            Categoria c = (Categoria)registros[i];
+            Categoria c = categorias[i];
 
             if (c == null)
                 continue;

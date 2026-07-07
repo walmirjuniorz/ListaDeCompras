@@ -1,10 +1,10 @@
 namespace ListaDeCompras.ConsoleApp.Compartilhado;
 
-public abstract class RepositorioBase
+public abstract class RepositorioBase<TEntidade> where TEntidade : EntidadeBase
 {
-    private EntidadeBase[] registros = new EntidadeBase[100];
+    private TEntidade[] registros = new TEntidade[100];
 
-    public void Cadastrar(EntidadeBase novaRegistro)
+    public void Cadastrar(TEntidade novaRegistro)
     {
         for (int i = 0; i < registros.Length; i++)
         {
@@ -15,9 +15,9 @@ public abstract class RepositorioBase
             }
         }
     }
-    public bool Editar(int idSelecionado, EntidadeBase entidadeAtualizada)
+    public bool Editar(int idSelecionado, TEntidade entidadeAtualizada)
     {
-        EntidadeBase? entidadeSelecionada = SelecionarPorId(idSelecionado);
+        TEntidade? entidadeSelecionada = SelecionarPorId(idSelecionado);
 
         if (entidadeSelecionada == null)
             return false;
@@ -30,7 +30,7 @@ public abstract class RepositorioBase
     {
         for (int i = 0; i < registros.Length; i++)
         {
-            EntidadeBase obj = registros[i];
+            TEntidade obj = registros[i];
 
             if (obj == null)
                 continue;
@@ -44,11 +44,11 @@ public abstract class RepositorioBase
 
         return false;
     }
-    public EntidadeBase? SelecionarPorId(int idSelecionado)
+    public TEntidade? SelecionarPorId(int idSelecionado)
     {
         for (int i = 0; i < registros.Length; i++)
         {
-            EntidadeBase obj = registros[i];
+            TEntidade obj = registros[i];
 
             if (obj == null)
                 continue;
@@ -59,7 +59,7 @@ public abstract class RepositorioBase
 
         return null;
     }
-    public EntidadeBase[] SelecionarTodos()
+    public TEntidade[] SelecionarTodos()
     {
         return registros;
     }
