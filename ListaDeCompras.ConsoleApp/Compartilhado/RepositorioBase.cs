@@ -2,18 +2,11 @@ namespace ListaDeCompras.ConsoleApp.Compartilhado;
 
 public abstract class RepositorioBase<TEntidade> where TEntidade : EntidadeBase
 {
-    private TEntidade[] registros = new TEntidade[100];
+    private List<TEntidade> registros = new List<TEntidade>();
 
     public void Cadastrar(TEntidade novaRegistro)
     {
-        for (int i = 0; i < registros.Length; i++)
-        {
-            if (registros[i] == null)
-            {
-                registros[i] = novaRegistro;
-                break;
-            }
-        }
+        registros.Add(novaRegistro);
     }
     public bool Editar(int idSelecionado, TEntidade entidadeAtualizada)
     {
@@ -28,38 +21,27 @@ public abstract class RepositorioBase<TEntidade> where TEntidade : EntidadeBase
     }
     public bool Excluir(int idSelecionado)
     {
-        for (int i = 0; i < registros.Length; i++)
-        {
-            TEntidade obj = registros[i];
+        TEntidade? registroSelecionado = SelecionarPorId(idSelecionado);
 
-            if (obj == null)
-                continue;
+        if (registroSelecionado == null)
+            return false;
 
-            if (obj.Id == idSelecionado)
-            {
-                registros[i] = null;
-                return true;
-            }
-        }
-
-        return false;
+        return registros.Remove(registroSelecionado);
     }
     public TEntidade? SelecionarPorId(int idSelecionado)
     {
-        for (int i = 0; i < registros.Length; i++)
+        foreach (TEntidade obj in registros)
         {
-            TEntidade obj = registros[i];
-
-            if (obj == null)
-                continue;
-
             if (obj.Id == idSelecionado)
+            {
                 return obj;
+            }
         }
 
         return null;
+
     }
-    public TEntidade[] SelecionarTodos()
+    public List<TEntidade> SelecionarTodos()
     {
         return registros;
     }

@@ -1,7 +1,7 @@
 using ListaDeCompras.ConsoleApp.Modulo.ModuloCategoria;
 using ListaDeCompras.ConsoleApp.Modulo.ModuloListaCompras;
 using ListaDeCompras.ConsoleApp.Modulo.ModuloProduto;
-using static ListaDeCompras.ConsoleApp.Modulo.ModuloCompra.GeradorIdsListaCompras;
+using ListaDeCompras.ConsoleApp.Modulos.ModuloListaCompras;
 using static ListaDeCompras.ConsoleApp.Modulo.ModuloItemListaCompras.GeradorIdsItemListaCompras;
 
 namespace ListaDeCompras.ConsoleApp.Compartilhado;

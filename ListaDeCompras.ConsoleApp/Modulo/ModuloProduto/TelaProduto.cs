@@ -31,15 +31,10 @@ public class TelaProduto : TelaBase<Produto>, ITelaOpcoes, ITelaCrud
             "Id", "Nome", "Categoria", "Unidade", "Preco Aproximado"
             );
 
-        Produto[] produtos = repositorioProduto.SelecionarTodos();
+        List<Produto> produtos = repositorioProduto.SelecionarTodos();
 
-        for (int i = 0; i < produtos.Length; i++)
+        foreach (Produto p in produtos)
         {
-            Produto p = (Produto)produtos[i];
-
-            if (p == null)
-                continue;
-
             Console.WriteLine(
                 "{0, -7} | {1, -20} | {2, -20} | {3, -11} | {4, -6}",
                 p.Id,
@@ -134,15 +129,10 @@ public class TelaProduto : TelaBase<Produto>, ITelaOpcoes, ITelaCrud
     }
     protected override bool ExisteRegistroComInformacoesExclusivas(Produto entidade, int? idIgnorado = null)
     {
-        Produto[] produtos = repositorioProduto.SelecionarTodos();
+        List<Produto> produtos = repositorioProduto.SelecionarTodos();
 
-        for (int i = 0; i < produtos.Length; i++)
+        foreach (Produto p in produtos)
         {
-            Produto p = produtos[i];
-
-            if (p == null)
-                continue;
-
             if (p.Id != idIgnorado &&
                 p.Nome.ToLower() == entidade.Nome.ToLower() &&
                 p.Categoria == entidade.Categoria
@@ -164,15 +154,10 @@ public class TelaProduto : TelaBase<Produto>, ITelaOpcoes, ITelaCrud
             "Id", "Nome", "Cor"
         );
 
-        Categoria[] categorias = repositorioCategoria.SelecionarTodos();
+        List<Categoria> categorias = repositorioCategoria.SelecionarTodos();
 
-        for (int i = 0; i < categorias.Length; i++)
+        foreach (Categoria c in categorias)
         {
-            Categoria c = categorias[i];
-
-            if (c == null)
-                continue;
-
             Console.WriteLine(
                 "{0, -7} | {1, -20} | {2, -10}",
                 c.Id, c.Nome, c.Cor

@@ -109,7 +109,7 @@ public abstract class TelaBase<TEntidade> where TEntidade : EntidadeBase
     {
         return false;
     }
-    protected virtual bool ExistemDependenciasAtivasNoRegistro(int idRegistro)
+    protected virtual bool ExistemDependenciasAtivasDoRegistro(int idRegistro)
     {
         return false;
     }

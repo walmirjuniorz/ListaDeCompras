@@ -30,15 +30,10 @@ public class TelaCategoria : TelaBase<Categoria>, ITelaOpcoes, ITelaCrud
             "Id", "Nome", "Cor"
         );
 
-        Categoria[] registros = repositorioCategoria.SelecionarTodos();
+        List<Categoria> registros = repositorioCategoria.SelecionarTodos();
 
-        for (int i = 0; i < registros.Length; i++)
+        foreach (Categoria c in registros)
         {
-            Categoria c = registros[i];
-
-            if (c == null)
-                continue;
-
             Console.WriteLine(
                 "{0, -7} | {1, -20} | {2, -10}",
                 c.Id, c.Nome, c.Cor
@@ -60,12 +55,12 @@ public class TelaCategoria : TelaBase<Categoria>, ITelaOpcoes, ITelaCrud
         Console.WriteLine("---------------------------------");
         Console.WriteLine("Selecione uma cor disponível para a categoria");
         Console.WriteLine("---------------------------------");
-        Console.WriteLine("1 - Branco (Branco)");
+        Console.WriteLine("1 - Branco (Padrao)");
         Console.WriteLine("2 - Vermelho");
         Console.WriteLine("3 - Verde");
         Console.WriteLine("4 - Azul");
         Console.WriteLine("---------------------------------");
-        Console.WriteLine("Informe a cor escolhida: ");
+        Console.Write("Informe a cor escolhida: ");
         string corSelecionada = Console.ReadLine();
 
         CorCategoria cor;
@@ -92,15 +87,10 @@ public class TelaCategoria : TelaBase<Categoria>, ITelaOpcoes, ITelaCrud
     }
     protected override bool ExisteRegistroComInformacoesExclusivas(Categoria entidade, int? idIgnorado = null)
     {
-        Categoria[] categorias = repositorioCategoria.SelecionarTodos();
+        List<Categoria> categorias = repositorioCategoria.SelecionarTodos();
 
-        for (int i = 0; i < categorias.Length; i++)
+        foreach (Categoria c in categorias)
         {
-            Categoria c = categorias[i];
-
-            if (c == null)
-                continue;
-
             if (idIgnorado != c.Id && entidade.Nome == c.Nome)
             {
                 Console.WriteLine("---------------------------------");
@@ -111,18 +101,12 @@ public class TelaCategoria : TelaBase<Categoria>, ITelaOpcoes, ITelaCrud
         }
         return base.ExisteRegistroComInformacoesExclusivas(entidade);
     }
-    protected override bool ExistemDependenciasAtivasNoRegistro(int idRegistro)
+    protected override bool ExistemDependenciasAtivasDoRegistro(int idRegistro)
     {
-        //TODO - nao permitir excluir uma categoria caso tenha produtos vinculados
-        Produto[] produtos = repositorioProduto.SelecionarTodos();
+        List<Produto> produtos = repositorioProduto.SelecionarTodos();
 
-        for (int i = 0; i < produtos.Length; i++)
+        foreach (Produto p in produtos)
         {
-            Produto p = produtos[i];
-
-            if (p == null)
-                continue;
-
             if (p.Categoria.Id == idRegistro)
             {
                 Console.WriteLine("---------------------------------");
@@ -132,6 +116,6 @@ public class TelaCategoria : TelaBase<Categoria>, ITelaOpcoes, ITelaCrud
                 return true;
             }
         }
-        return base.ExistemDependenciasAtivasNoRegistro(idRegistro);
+        return base.ExistemDependenciasAtivasDoRegistro(idRegistro);
     }
 }
