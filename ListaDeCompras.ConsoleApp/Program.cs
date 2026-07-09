@@ -1,12 +1,19 @@
 ﻿using ListaDeCompras.ConsoleApp.Compartilhado;
+using ListaDeCompras.ConsoleApp.Compartilhado.Arquivos;
+using ListaDeCompras.ConsoleApp.Modulo.ModuloCategoria;
+using ListaDeCompras.ConsoleApp.Modulo.ModuloProduto;
 using ListaDeCompras.ConsoleApp.Modulos.ModuloListaCompras;
+
+ContextoJson contexto = new ContextoJson();
+
+contexto.Salvar();
+
+return;
 
 TelaPrincipal telaPrincipal = new TelaPrincipal();
 
 while (true)
 {
-    // Menu Principal da Aplicação
-    //Polimorfismo
     ITelaOpcoes telaSelecionada = telaPrincipal.ObterOpcaoMenuPrincipal();
 
     if (telaSelecionada == null)

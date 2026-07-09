@@ -24,10 +24,15 @@ public static class GeradorIdsListaCompras
 }
 public class ListaCompras : EntidadeBase
 {
-    public string Nome { get; private set; }
-    public DateTime DataCriacao { get; private set; }
-    public StatusListaCompras Status { get; private set; } = StatusListaCompras.Aberta;
-    public ItemListaCompras[] Itens { get; private set; } = new ItemListaCompras[100];
+    public string Nome { get; set; }
+    public DateTime DataCriacao { get; set; }
+    public StatusListaCompras Status { get; set; } = StatusListaCompras.Aberta;
+    public ItemListaCompras[] Itens { get; set; } = new ItemListaCompras[100];
+
+    public ListaCompras()
+    {
+    }
+
     public ListaCompras(string nome)
     {
         Id = GeradorIdsListaCompras.GerarId();

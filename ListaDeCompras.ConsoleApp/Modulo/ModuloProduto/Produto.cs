@@ -31,11 +31,16 @@ public static class GeradorIdsProduto
 }
 public class Produto : EntidadeBase
 {
-    public string Nome { get; private set; }
-    public Categoria Categoria { get; private set; }
-    public int ValorUnidadeMedida { get; private set; }
-    public UnidadeMedidaProduto UnidadeMedida { get; private set; } = UnidadeMedidaProduto.Unidade;
-    public decimal Preco { get; private set; }
+    public string Nome { get; set; }
+    public Categoria Categoria { get; set; }
+    public int ValorUnidadeMedida { get; set; }
+    public UnidadeMedidaProduto UnidadeMedida { get; set; } = UnidadeMedidaProduto.Unidade;
+    public decimal Preco { get; set; }
+
+    public Produto()
+    {
+    }
+
     public Produto(string nome, Categoria categoria, int valorUnidadeMedida, UnidadeMedidaProduto unidadeProduto, decimal preco)
     {
         Id = GeradorIdsCategoria.GerarId();
