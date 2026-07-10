@@ -1,3 +1,4 @@
+using ListaDeCompras.ConsoleApp.Compartilhado.Arquivos;
 using ListaDeCompras.ConsoleApp.Modulo.ModuloCategoria;
 using ListaDeCompras.ConsoleApp.Modulo.ModuloListaCompras;
 using ListaDeCompras.ConsoleApp.Modulo.ModuloProduto;
@@ -13,9 +14,13 @@ public class TelaPrincipal
     private readonly RepositorioListaCompras repositorioListaCompras;
     public TelaPrincipal()
     {
-        repositorioCategoria = new RepositorioCategoria();
-        repositorioProduto = new RepositorioProduto();
-        repositorioListaCompras = new RepositorioListaCompras();
+        ContextoJson contexto = new ContextoJson();
+
+        contexto.Carregar();
+
+        repositorioCategoria = new RepositorioCategoria(contexto);
+        repositorioProduto = new RepositorioProduto(contexto);
+        repositorioListaCompras = new RepositorioListaCompras(contexto);
 
     }
 

@@ -22,7 +22,7 @@ public class ContextoJson
 
         Directory.CreateDirectory(caminhoDiretorioAplicativo);
 
-        string caminhoArquivoDados = Path.Join(caminhoDiretorioAplicativo, "dados.json");
+        caminhoArquivoDados = Path.Join(caminhoDiretorioAplicativo, "dados.json");
     }
     public void Salvar()
     {

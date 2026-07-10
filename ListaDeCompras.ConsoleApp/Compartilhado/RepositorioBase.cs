@@ -1,12 +1,24 @@
+using ListaDeCompras.ConsoleApp.Compartilhado.Arquivos;
+
 namespace ListaDeCompras.ConsoleApp.Compartilhado;
 
 public abstract class RepositorioBase<TEntidade> where TEntidade : EntidadeBase
 {
-    private List<TEntidade> registros = new List<TEntidade>();
+    protected readonly ContextoJson contexto;
+    protected readonly List<TEntidade> registros;
+
+    protected RepositorioBase(ContextoJson contexto)
+    {
+        this.contexto = contexto;
+        registros = ObterRegistro();
+    }
+    protected abstract List<TEntidade> ObterRegistro();
 
     public void Cadastrar(TEntidade novaRegistro)
     {
         registros.Add(novaRegistro);
+
+        contexto.Salvar();
     }
     public bool Editar(int idSelecionado, TEntidade entidadeAtualizada)
     {
@@ -17,6 +29,8 @@ public abstract class RepositorioBase<TEntidade> where TEntidade : EntidadeBase
 
         entidadeSelecionada.Atualizar(entidadeAtualizada);
 
+        contexto.Salvar();
+
         return true;
     }
     public bool Excluir(int idSelecionado)
@@ -26,7 +40,14 @@ public abstract class RepositorioBase<TEntidade> where TEntidade : EntidadeBase
         if (registroSelecionado == null)
             return false;
 
-        return registros.Remove(registroSelecionado);
+        bool conseguiuRemover = registros.Remove(registroSelecionado);
+
+        if (!conseguiuRemover)
+            return false;
+
+        contexto.Salvar();
+
+        return true;
     }
     public TEntidade? SelecionarPorId(int idSelecionado)
     {
