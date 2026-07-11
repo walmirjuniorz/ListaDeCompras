@@ -35,6 +35,19 @@ public abstract class TelaBase<TEntidade> where TEntidade : EntidadeBase
 
         TEntidade novaEntidade = ObterDadosCadastrais();
 
+        List<string> erros = novaEntidade.Validar();
+
+        if (erros.Count > 0)
+        {
+            string erro = erros.First();
+
+            Console.WriteLine("---------------------------------");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(erro);
+            Console.ResetColor();
+            Console.WriteLine("---------------------------------");
+        }
+
         if (ExisteRegistroComInformacoesExclusivas(novaEntidade))
         {
             Console.WriteLine("Digite ENTER para continuar");

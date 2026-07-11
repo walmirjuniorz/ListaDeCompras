@@ -40,7 +40,6 @@ public class Produto : EntidadeBase
     public Produto()
     {
     }
-
     public Produto(string nome, Categoria categoria, int valorUnidadeMedida, UnidadeMedidaProduto unidadeProduto, decimal preco)
     {
         Id = GeradorIdsCategoria.GerarId();
@@ -51,7 +50,30 @@ public class Produto : EntidadeBase
         UnidadeMedida = unidadeProduto;
         Preco = preco;
     }
+    public override List<string> Validar()
+    {
+        List<string> erros = new List<string>();
 
+        if (string.IsNullOrWhiteSpace(Nome))
+            erros.Add("O campo \"Nome\" precisa ser preenchido!");
+
+        else if (Nome.Length < 2 || Nome.Length > 100)
+            erros.Add("O campo \"Nome\" precisa ter entre 2 e 100 caracteres!");
+
+        if (Categoria == null)
+            erros.Add("O campo \"Categoria\" deve ser preenchido!");
+
+        if (ValorUnidadeMedida == 0)
+            erros.Add("O campo \"Valor de Medida\" nao pode conter o valor zero!");
+
+        if (!Enum.IsDefined(UnidadeMedida))
+            erros.Add("O campo \"Unidade de Medida\" deve conter uma seleçao permitida (Unidade, Caixa, Duzia, Kg, L, Ml, G)");
+
+        if (Preco == 0)
+            erros.Add("O campo \"Valor de Medida\" nao pode conter o valor zero!");
+
+        return erros;
+    }
     public override void Atualizar(EntidadeBase entidadeAtualizada)
     {
         Produto produtoAtualizado = (Produto)entidadeAtualizada;

@@ -5,10 +5,6 @@ public abstract class EntidadeBase
 {
     public int Id { get; set; }
 
+    public abstract List<string> Validar();
     public abstract void Atualizar(EntidadeBase entidadeAtualizada);
-
-    internal bool Remove<TEntidade>(TEntidade registros) where TEntidade : EntidadeBase
-    {
-        throw new NotImplementedException();
-    }
 }

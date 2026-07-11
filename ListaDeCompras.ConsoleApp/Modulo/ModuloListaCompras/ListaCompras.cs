@@ -32,7 +32,6 @@ public class ListaCompras : EntidadeBase
     public ListaCompras()
     {
     }
-
     public ListaCompras(string nome)
     {
         Id = GeradorIdsListaCompras.GerarId();
@@ -62,6 +61,18 @@ public class ListaCompras : EntidadeBase
                 return;
             }
         }
+    }
+    public override List<string> Validar()
+    {
+        List<string> erros = new List<string>();
+
+        if (string.IsNullOrWhiteSpace(Nome))
+            erros.Add("O campo \"Nome\" precisa ser preenchido!");
+
+        else if (Nome.Length < 3 || Nome.Length > 100)
+            erros.Add("O campo \"Nome\" precisa ter entre 3 e 100 caracteres!");
+
+        return erros;
     }
     public override void Atualizar(EntidadeBase entidadeAtualizada)
     {
