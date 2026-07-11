@@ -49,7 +49,7 @@ public class Categoria : EntidadeBase
         else if (Nome.Length > 50)
             erros.Add("O campo \"Nome\" pode conter no máximo 50 caracteres");
 
-        else if (Enum.IsDefined(Cor))
+        else if (!Enum.IsDefined(Cor))
             erros.Add("O campo \"Nome\" deve conter uma seleçao permitida (Branco, Vermelho, Verde, Azul)");
 
         return erros;

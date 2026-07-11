@@ -46,12 +46,21 @@ public abstract class TelaBase<TEntidade> where TEntidade : EntidadeBase
             Console.WriteLine(erro);
             Console.ResetColor();
             Console.WriteLine("---------------------------------");
+            Console.WriteLine("Digite ENTER para continuar");
+            Console.ReadLine();
+
+            // Recursao = Quando um método executa/chama o proprio método
+            // Stack OverFlow:
+            Cadastrar();
+            return;
         }
 
         if (ExisteRegistroComInformacoesExclusivas(novaEntidade))
         {
             Console.WriteLine("Digite ENTER para continuar");
             Console.ReadLine();
+
+            Cadastrar();
             return;
         }
 
@@ -62,6 +71,7 @@ public abstract class TelaBase<TEntidade> where TEntidade : EntidadeBase
         Console.WriteLine("---------------------------------");
         Console.WriteLine("Digite ENTER para continuar");
         Console.ReadLine();
+
     }
     public void Editar()
     {
@@ -80,10 +90,32 @@ public abstract class TelaBase<TEntidade> where TEntidade : EntidadeBase
 
         TEntidade entidadeAtualizada = ObterDadosCadastrais();
 
+        List<string> erros = entidadeAtualizada.Validar();
+
+        if (erros.Count > 0)
+        {
+            string erro = erros.First();
+
+            Console.WriteLine("---------------------------------");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(erro);
+            Console.ResetColor();
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("Digite ENTER para continuar");
+            Console.ReadLine();
+
+            // Recursao = Quando um método executa/chama o proprio método
+            // Stack OverFlow: Quando a pilha de chamados (Call Stack) "Transborda"
+            Editar();
+            return;
+        }
+
         if (ExisteRegistroComInformacoesExclusivas(entidadeAtualizada, idSelecionado))
         {
             Console.WriteLine("Digite ENTER para continuar");
             Console.ReadLine();
+
+            Editar();
             return;
         }
 
